@@ -23,19 +23,22 @@ def make_chains(corpus):
 def make_text(chains):
     """Takes a dictionary of markov chains and returns random text
     based off an original text."""
-
     import random
-    
-    starting_point = random.choice(chains.keys())
-    
-    print 
-    #pick a random value based on random key
-    #intiate a list or string
-    #new key = index 1 from tuple + value 
-    #in a while loop
-    # break if key = none
-    #return string or list
-    return "Here's some random text."
+    text = [ ]
+    starting_key = random.choice(chains.keys())
+    starting_value = random.choice(chains[starting_key])
+    previous_key = (starting_key[1], starting_value)
+    print starting_value
+    stop = True
+    while stop == True:
+        value = random.choice(chains[previous_key])
+        print value
+        text.append(value)
+        new_key = (previous_key[1], value)
+        previous_key = new_key
+        if previous_key not in chains:
+            stop = False 
+    return text
 
 def main():
     #Change this to read input_text from a file
